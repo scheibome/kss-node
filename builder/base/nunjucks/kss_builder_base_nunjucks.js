@@ -15,9 +15,8 @@
 const KssBuilderBase = require('../kss_builder_base.js');
 const path = require('path');
 const nunjucks = require('nunjucks');
-const Promise = require('bluebird');
 
-const fs = Promise.promisifyAll(require('fs-extra'));
+const fs = require('fs-extra');
 
 // Define "KssBuilderBaseNunjucks" as the name of our nunjucks builder class.
 //

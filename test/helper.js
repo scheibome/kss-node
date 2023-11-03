@@ -4,9 +4,8 @@
 global.chai = require('chai');
 global.kss = require('..');
 global.path = require('path');
-global.Promise = require('bluebird');
 global.expect = chai.expect;
-global.fs = Promise.promisifyAll(require('fs-extra'));
+global.fs = require('fs-extra');
 
 // Create a helper utility object.
 global.helperUtils = {

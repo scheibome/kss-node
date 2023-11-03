@@ -12,10 +12,9 @@
 const KssBuilderBase = require('../kss_builder_base.js'),
   path = require('path'),
   pug = require('pug'),
-  Promise = require('bluebird'),
   Handlebars = require('handlebars');
 
-const fs = Promise.promisifyAll(require('fs-extra'));
+const fs = require('fs-extra');
 
 /**
  * A kss-node builder takes input files and builds a style guide using
