@@ -45,16 +45,6 @@
     "twig-drupal-filters": "^3.1.2",
     "yargs": "^16.1.1"
   },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "coveralls": "^3.1.0",
-    "eslint": "^7.14.0",
-    "gh-pages": "^3.1.0",
-    "jsdoc": "^3.6.6",
-    "mocha": "^8.2.1",
-    "mock-utf8-stream": "^0.1.1",
-    "nyc": "^15.1.0"
-  },
   "bin": {
     "kss": "./bin/kss",
     "kss-node": "./bin/kss-node"
