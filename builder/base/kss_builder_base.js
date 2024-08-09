@@ -14,12 +14,10 @@
 
 const md = require('../../lib/md.js');
 const path = require('path');
-const Promise = require('bluebird');
 const resolve = require('resolve'); // replace by require.resolve for node >= 8.9
-
-const fs = Promise.promisifyAll(require('fs-extra')),
-  glob = Promise.promisify(require('glob')),
-  kssBuilderAPI = '3.0';
+const fs = require('fs-extra');
+const glob = require('glob');
+const kssBuilderAPI = '3.0';
 
 /**
  * A kss-node builder takes input files and builds a style guide.
@@ -855,7 +853,7 @@ class KssBuilderBase {
       };
 
       // Check if the markup is a file path.
-      if (template.markup.search('^[^\n]+\.(html|' + templateExtension + ')$') === -1) {
+      if (template.markup.search('^[^\n]+\.(html|pug|' + templateExtension + ')$') === -1) {
         if (this.options.verbose) {
           this.log(' - ' + template.reference + ': inline markup');
         }
@@ -1192,11 +1190,23 @@ class KssBuilderBase {
       }
 
       return getHomepageText.then(() => {
+        const filePath = path.join(this.options.destination, fileName);
+        const fileContent = templateRender(this.templates[templateName], context);
+
+        const isFileAlreadyExisting = fs.existsSync(filePath);
+
+        // check if the file already exists
+        if (isFileAlreadyExisting) {
+          const existingFileContent = fs.readFileSync(filePath, 'utf8');
+
+          // don't write the file if the content is the same
+          if (existingFileContent === fileContent) {
+            return Promise.resolve();
+          }
+        }
+
         // Render the template and save it to the destination.
-        return fs.writeFileAsync(
-          path.join(this.options.destination, fileName),
-          templateRender(this.templates[templateName], context)
-        );
+        return fs.writeFileAsync(filePath, fileContent);
       });
     });
   }

@@ -11,10 +11,10 @@
 
 const KssBuilderBase = require('../kss_builder_base.js'),
   path = require('path'),
-  Promise = require('bluebird'),
+  pug = require('pug'),
   Handlebars = require('handlebars');
 
-const fs = Promise.promisifyAll(require('fs-extra'));
+const fs = require('fs-extra');
 
 /**
  * A kss-node builder takes input files and builds a style guide using
@@ -89,9 +89,17 @@ class KssBuilderBaseHandlebars extends KssBuilderBase {
     };
     // Returns a promise to read/load a template specified by a section.
     options.readSectionTemplate = (name, filepath) => {
-      return fs.readFileAsync(filepath, 'utf8').then(contents => {
-        this.Handlebars.registerPartial(name, contents);
-        return contents;
+      return fs.readFileAsync(filepath, 'utf8').then(fileContent => {
+        let output = fileContent;
+
+        const isPugFile = path.extname(filepath) === '.pug';
+        if (isPugFile) {
+          const pugFn = pug.compileFile(filepath);
+          output = pugFn();
+        }
+
+        this.Handlebars.registerPartial(name, output);
+        return output;
       });
     };
     // Returns a promise to load an inline template from markup.
