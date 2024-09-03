@@ -14,10 +14,12 @@
 
 const md = require('../../lib/md.js');
 const path = require('path');
+const Promise = require('bluebird');
 const resolve = require('resolve'); // replace by require.resolve for node >= 8.9
-const fs = require('fs-extra');
-const glob = require('glob');
-const kssBuilderAPI = '3.0';
+
+const fs = Promise.promisifyAll(require('fs-extra')),
+  glob = Promise.promisify(require('glob')),
+  kssBuilderAPI = '3.0';
 
 /**
  * A kss-node builder takes input files and builds a style guide.
