@@ -641,7 +641,9 @@ class KssBuilderBase {
   prepareDestination(assetDirectory) {
     // check if directory exists, if yes delete
     if (fs.existsSync(this.options.destination)) {
-      fs.removeSync(this.options.destination);
+      fs.removeSync(this.options.destination, {
+        recursive: true,
+      });
     }
 
     // Create a new destination directory.
