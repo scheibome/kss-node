@@ -639,6 +639,11 @@ class KssBuilderBase {
    * @returns {Promise} A promise to initialize the destination directory.
    */
   prepareDestination(assetDirectory) {
+    // check if directory exists, if yes delete
+    if (fs.existsSync(this.options.destination)) {
+      fs.removeSync(this.options.destination);
+    }
+
     // Create a new destination directory.
     return fs.mkdir(this.options.destination).then(() => {
       if (assetDirectory) {
