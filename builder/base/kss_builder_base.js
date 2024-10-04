@@ -1211,7 +1211,7 @@ class KssBuilderBase {
         }
 
         // Render the template and save it to the destination.
-        return fs.writeFileAsync(filePath, fileContent);
+        return fs.writeFile(filePath, fileContent);
       });
     });
   }
