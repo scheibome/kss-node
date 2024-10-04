@@ -84,13 +84,13 @@ class KssBuilderBaseHandlebars extends KssBuilderBase {
     let options = {};
     // Returns a promise to read/load a template provided by the builder.
     options.readBuilderTemplate = (name) => {
-      return fs.readFileAsync(path.resolve(this.options.builder, name + '.hbs'), 'utf8').then(content => {
+      return fs.readFile(path.resolve(this.options.builder, name + '.hbs'), 'utf8').then(content => {
         return this.Handlebars.compile(content);
       });
     };
     // Returns a promise to read/load a template specified by a section.
     options.readSectionTemplate = (name, filepath) => {
-      return fs.readFileAsync(filepath, 'utf8').then(fileContent => {
+      return fs.readFile(filepath, 'utf8').then(fileContent => {
         let output = fileContent;
 
         const isPugFile = path.extname(filepath) === '.pug';

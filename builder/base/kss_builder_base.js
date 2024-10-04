@@ -530,7 +530,7 @@ class KssBuilderBase {
    * @returns {Promise.<null>} A `Promise` object resolving to `null`.
    */
   clone(builderPath, destinationPath) {
-    return fs.statAsync(destinationPath).catch(error => {
+    return fs.stat(destinationPath).catch(error => {
       // Pass the error on to the next .then().
       return error;
     }).then(result => {
@@ -542,7 +542,7 @@ class KssBuilderBase {
       // If the destination path does not exist, we copy the builder to it.
       // istanbul ignore else
       if (result.code === 'ENOENT') {
-        return fs.copyAsync(
+        return fs.copy(
           builderPath,
           destinationPath,
           {
@@ -643,7 +643,7 @@ class KssBuilderBase {
     return fs.mkdirsAsync(this.options.destination).then(() => {
       if (assetDirectory) {
         // Optionally, copy the contents of the builder's asset directory.
-        return fs.copyAsync(
+        return fs.copy(
           path.join(this.options.builder, assetDirectory),
           path.join(this.options.destination, assetDirectory),
           {
