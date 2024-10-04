@@ -16,7 +16,7 @@ const md = require('../../lib/md.js');
 const path = require('path');
 const resolve = require('resolve'); // replace by require.resolve for node >= 8.9
 const fs = require('fs-extra');
-const {glob} = require('glob');
+const { glob } = require('glob');
 const kssBuilderAPI = '3.0';
 
 /**
