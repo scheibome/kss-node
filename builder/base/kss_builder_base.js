@@ -640,7 +640,7 @@ class KssBuilderBase {
    */
   prepareDestination(assetDirectory) {
     // Create a new destination directory.
-    return fs.mkdirsAsync(this.options.destination).then(() => {
+    return fs.mkdir(this.options.destination).then(() => {
       if (assetDirectory) {
         // Optionally, copy the contents of the builder's asset directory.
         return fs.copy(
@@ -682,7 +682,7 @@ class KssBuilderBase {
     let promises = [];
     this.options.extend.forEach(directory => {
       promises.push(
-        fs.readdirAsync(directory).then(files => {
+        fs.readdir(directory).then(files => {
           files.forEach(fileName => {
             if (path.extname(fileName) === '.js') {
               let extendFunction = require(path.join(directory, fileName));
