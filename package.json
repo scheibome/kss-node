@@ -32,9 +32,8 @@
   },
   "license": "(MIT OR GPL-2.0)",
   "dependencies": {
-    "bluebird": "^3.7.2",
-    "fs-extra": "^9.0.1",
-    "glob": "^7.1.6",
+    "fs-extra": "^11.2.0",
+    "glob": "^11.0.0",
     "handlebars": "^4.7.6",
     "highlight.js": "^10.4.1",
     "markdown-it": "^12.0.2",
@@ -45,21 +44,14 @@
     "twig-drupal-filters": "^3.1.2",
     "yargs": "^16.1.1"
   },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "coveralls": "^3.1.0",
-    "eslint": "^7.14.0",
-    "gh-pages": "^3.1.0",
-    "jsdoc": "^3.6.6",
-    "mocha": "^8.2.1",
-    "mock-utf8-stream": "^0.1.1",
-    "nyc": "^15.1.0"
-  },
   "bin": {
     "kss": "./bin/kss",
     "kss-node": "./bin/kss-node"
   },
   "engines": {
     "node": ">=8.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4"
   }
 }

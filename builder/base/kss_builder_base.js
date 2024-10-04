@@ -14,12 +14,10 @@
 
 const md = require('../../lib/md.js');
 const path = require('path');
-const Promise = require('bluebird');
 const resolve = require('resolve'); // replace by require.resolve for node >= 8.9
-
-const fs = Promise.promisifyAll(require('fs-extra')),
-  glob = Promise.promisify(require('glob')),
-  kssBuilderAPI = '3.0';
+const fs = require('fs-extra');
+const { glob } = require('glob');
+const kssBuilderAPI = '3.0';
 
 /**
  * A kss-node builder takes input files and builds a style guide.
@@ -532,7 +530,7 @@ class KssBuilderBase {
    * @returns {Promise.<null>} A `Promise` object resolving to `null`.
    */
   clone(builderPath, destinationPath) {
-    return fs.statAsync(destinationPath).catch(error => {
+    return fs.stat(destinationPath).catch(error => {
       // Pass the error on to the next .then().
       return error;
     }).then(result => {
@@ -544,7 +542,7 @@ class KssBuilderBase {
       // If the destination path does not exist, we copy the builder to it.
       // istanbul ignore else
       if (result.code === 'ENOENT') {
-        return fs.copyAsync(
+        return fs.copy(
           builderPath,
           destinationPath,
           {
@@ -642,10 +640,10 @@ class KssBuilderBase {
    */
   prepareDestination(assetDirectory) {
     // Create a new destination directory.
-    return fs.mkdirsAsync(this.options.destination).then(() => {
+    return fs.mkdirs(this.options.destination).then(() => {
       if (assetDirectory) {
         // Optionally, copy the contents of the builder's asset directory.
-        return fs.copyAsync(
+        return fs.copy(
           path.join(this.options.builder, assetDirectory),
           path.join(this.options.destination, assetDirectory),
           {
@@ -684,7 +682,7 @@ class KssBuilderBase {
     let promises = [];
     this.options.extend.forEach(directory => {
       promises.push(
-        fs.readdirAsync(directory).then(files => {
+        fs.readdir(directory).then(files => {
           files.forEach(fileName => {
             if (path.extname(fileName) === '.js') {
               let extendFunction = require(path.join(directory, fileName));
@@ -1208,7 +1206,7 @@ class KssBuilderBase {
         }
 
         // Render the template and save it to the destination.
-        return fs.writeFileAsync(filePath, fileContent);
+        return fs.writeFile(filePath, fileContent);
       });
     });
   }

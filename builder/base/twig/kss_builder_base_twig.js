@@ -11,10 +11,8 @@
 
 const KssBuilderBase = require('../kss_builder_base.js'),
   path = require('path'),
-  Promise = require('bluebird'),
+  fs = require('fs-extra'),
   Twig = require('twig');
-
-const fs = Promise.promisifyAll(require('fs-extra'));
 
 /**
  * A kss-node builder takes input files and builds a style guide using

@@ -15,9 +15,7 @@
 const KssBuilderBase = require('../kss_builder_base.js');
 const path = require('path');
 const nunjucks = require('nunjucks');
-const Promise = require('bluebird');
-
-const fs = Promise.promisifyAll(require('fs-extra'));
+const fs = require('fs-extra');
 
 // Define "KssBuilderBaseNunjucks" as the name of our nunjucks builder class.
 //
@@ -102,14 +100,14 @@ class KssBuilderBaseNunjucks extends KssBuilderBase {
       const templateName = `${name}.${options.templateExtension}`;
       const templatePath = path.resolve(this.options.builder, templateName);
 
-      return fs.readFileAsync(templatePath, 'utf8').then((content) => {
+      return fs.readFile(templatePath, 'utf8').then((content) => {
         return this.Nunjucks.compile(content, this.NunjucksEnv);
       });
     };
 
     // Returns a promise to read/load a template specified by a section.
     options.readSectionTemplate = (name, filepath) => {
-      return fs.readFileAsync(filepath, 'utf8').then((contents) => {
+      return fs.readFile(filepath, 'utf8').then((contents) => {
         const compiled = this.Nunjucks.compile(contents, this.NunjucksEnv);
         this.templates[name] = compiled;
 
