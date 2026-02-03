@@ -38,7 +38,7 @@
     "highlight.js": "^10.4.1",
     "markdown-it": "^12.0.2",
     "nunjucks": "^3.2.2",
-    "pug": "^3.0.2",
+    "pug": "^3.0.3",
     "resolve": "^1.19.0",
     "twig": "^1.17.1",
     "twig-drupal-filters": "^3.2.0",
